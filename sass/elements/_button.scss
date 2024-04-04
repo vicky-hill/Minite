@@ -1,0 +1,180 @@
+$button-main-color: #3b82f6;
+$button-grey-color: $neutral-400;
+
+.btn {
+    position: relative;
+    color: white;
+    font-size: 16px;
+    height: 34px;
+    padding: 0 17px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid transparent;
+    line-height: inherit;
+    cursor: pointer;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    &-primary {
+        background-color: $button-main-color !important;
+
+        &:focus {
+            box-shadow: 0 0 0 3px mix(white, $button-main-color, 55%);
+            background-color: mix(black, $button-main-color, 10%);
+        }
+
+        &:hover {
+            background-color: mix(black, $button-main-color, 10%) !important;
+        }
+
+        &:disabled {
+            background-color: mix(white, $button-main-color, 45%);
+            cursor: auto;
+        }
+
+        &-outline {
+            background-color: white !important;
+            color: $button-main-color;
+            border: 1px solid $button-main-color;
+
+            &:focus {
+                box-shadow: 0 0 0 3px mix(white, $button-main-color, 55%);
+                background-color: $button-main-color;
+                color: #fff;
+            }
+
+            &:hover {
+                background-color: $button-main-color;
+                color: #fff;
+            }
+
+            &:disabled {
+                background-color: mix(white, $button-main-color, 45%);
+                cursor: auto;
+                color: #fff;
+            }
+        }
+    }
+
+    &-grey {
+        background-color: $button-grey-color !important;
+
+        &:focus {
+            box-shadow: 0 0 0 3px mix(white, $button-grey-color, 55%);
+            background-color: mix(black, $button-grey-color, 10%);
+        }
+
+        &:hover {
+            background-color: mix(black, $button-grey-color, 10%);
+        }
+
+        &:disabled {
+            background-color: mix(white, $button-grey-color, 45%);
+            cursor: auto;
+        }
+
+        &-outline {
+            background-color: white !important;
+            color: $button-grey-color;
+            border: 1px solid $button-grey-color;
+
+            &:focus {
+                box-shadow: 0 0 0 3px mix(white, $button-grey-color, 55%);
+                background-color: $button-grey-color !important;
+                color: #fff;
+            }
+
+            &:hover {
+                background-color: $button-grey-color !important;
+                color: #fff !important;
+            }
+
+            &:disabled {
+                background-color: mix(white, $button-grey-color, 45%);
+                cursor: auto;
+                color: #fff;
+            }
+        }
+    }
+
+    &--floating {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        width: 60px;
+        height: 60px;
+        background: $button-main-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 25px;
+        box-shadow: 1px 2px 7px rgba(0, 0, 0, .25);
+        transition: background .25s;
+        z-index: 200;
+
+        &:active,
+        &:hover {
+            background: mix(black, $button-main-color, 10%);
+        }
+    }
+
+    &--loading {
+        .btn-text {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 3px solid transparent;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: button-loading-spinner .8s ease infinite;
+        }
+
+        @keyframes button-loading-spinner {
+            from {
+                transform: rotate(0turn);
+            }
+
+            to {
+                transform: rotate(1turn);
+            }
+        }
+    }
+
+    &--small {
+        height: 30px;
+        font-size: 14px;
+        padding: 0 15px;
+    }
+
+    &--big {
+        height: 52px;
+        padding: 0 32px;
+    }
+
+    &--block {
+        width: 100%;
+    }
+
+    &--round {
+        border-radius: 28px;
+    }
+}
+
+@media only screen and (max-width : 900px) {
+    .btn--floating {
+        right: 20px;
+        bottom: 20px;
+    }
+}
