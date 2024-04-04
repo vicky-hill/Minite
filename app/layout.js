@@ -1,3 +1,4 @@
+import Protect from '@/components/layout/Protect';
 import { UserContextProvider } from '@/context/UserContext';
 import '@/sass/main.scss'
 
@@ -11,7 +12,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <UserContextProvider>
-          {children}
+          <Protect>
+            {children}
+          </Protect>
         </UserContextProvider>
       </body>
     </html>
