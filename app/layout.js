@@ -1,3 +1,4 @@
+import { UserContextProvider } from '@/context/UserContext';
 import '@/sass/main.scss'
 
 export const metadata = {
@@ -9,7 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <UserContextProvider>
+          {children}
+        </UserContextProvider>
       </body>
     </html>
   );
