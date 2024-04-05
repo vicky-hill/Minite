@@ -17,6 +17,8 @@ export const UserContextProvider = ({ children }) => {
 
     const mode = useQuery().get('mode');
 
+    console.log(currentUser)
+
     useEffect(() => {
         checkUserSession();
     }, []);
