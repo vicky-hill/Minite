@@ -14,7 +14,8 @@ export const EventContextProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     const [events, setEvents] = useState(null);
-    const [event, setEvent] = useState('');
+    const [event, setEvent] = useState(null);
+    const [images, setImages] = useState(null);
 
     const { currentUser } = useContext(UserContext);
 
@@ -32,6 +33,8 @@ export const EventContextProvider = ({ children }) => {
 
             const { data: events } = await api.get(`/events`);
 
+            setEvent(events[0]);
+            setImages(events[0]?.images)
             setEvents(events);
             setLoading(false);
         } catch (err) {
@@ -51,6 +54,7 @@ export const EventContextProvider = ({ children }) => {
             const event = await api.post(`/events`, { name });
 
             setEvents(events => [...events, event]);
+            setEvent(event);
             setLoading(false);
 
             return event;
@@ -59,6 +63,15 @@ export const EventContextProvider = ({ children }) => {
         }
     }
 
+    /**
+     * Select Event
+     * @param {objectId} eventID
+    */
+    const selectEvent = (eventID) => {
+        const selectedEvent = events.find(event => event._id === eventID);
+        setEvent(selectedEvent);
+        setImages(selectedEvent.images)
+    }
 
 
 
@@ -66,6 +79,9 @@ export const EventContextProvider = ({ children }) => {
 
 
     const value = {
+        images,
+        event,
+        selectEvent,
         events,
         createEvent
     }

@@ -1,5 +1,4 @@
-import getImageUrl from "@/utils/getImageUrl";
-import Image from "next/image";
+import Image from "next/image"
 
 const ImageListItem = ({ image }) => {
 
@@ -7,8 +6,9 @@ const ImageListItem = ({ image }) => {
         <div className='flex mt-3'>
         <div className='relative w-20 h-20 rounded-md overflow-hidden'>
           <Image
-            src={getImageUrl(image.year, image.name)}
+            src={image.url}
             style={{ objectFit: 'cover' }}
+            alt={image.name}
             fill
           />
         </div>
