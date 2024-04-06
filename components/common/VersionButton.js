@@ -5,7 +5,7 @@ const VersionButton = ({ children, active, onClick }) => {
     const activeClassNames = 'bg-zinc-700 text-white'
 
     return (
-        <div className={`${classNames} ${active ? activeClassNames : ''}`} onClick={() => onClick(children)}>
+        <div className={`${classNames} ${active ? activeClassNames : ''}`} onClick={() => onClick(children.toLowerCase())}>
             { children }
         </div>
     )

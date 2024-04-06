@@ -20,6 +20,7 @@
     "react-feather": "^2.0.10",
     "react-select": "^5.8.0",
     "sass": "^1.74.1",
+    "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {
