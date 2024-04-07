@@ -4,7 +4,7 @@ const ImageListItem = ({ image }) => {
 
     return (
         <div className='flex mt-3'>
-        <div className='relative w-20 h-20 rounded-md overflow-hidden'>
+        <div className='relative w-36 h-36 rounded-md overflow-hidden'>
           <Image
             src={image.thumbnail}
             style={{ objectFit: 'cover' }}

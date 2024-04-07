@@ -5,13 +5,15 @@ import EventContext from '@/context/EventContext'
 import { IKContext, IKUpload } from 'imagekitio-react'
 import UserContext from '@/context/UserContext'
 import { v4 as uuid } from 'uuid';
+import ImageContext from '@/context/ImageContext'
 
 
-const Upload = ({ }) => {
+const Upload = ({ imageID }) => {
   const [fileName, setFileName] = useState(null);
   const [folder, setFolder] = useState(null);
 
-  const { selectedVersion, event, createImage, nextImageID } = useContext(EventContext);
+  const { event } = useContext(EventContext);
+  const { createImage, nextImageID, selectedVersion } = useContext(ImageContext);
   const { currentUser: { _id: userID } } = useContext(UserContext);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const Upload = ({ }) => {
         filePath, width, height, url, fileId,
         thumbnail: thumbnailUrl,
         fileName: name,
-        imageID: nextImageID,
+        imageID: imageID || nextImageID,
         name: `${event.year}_${event.name}_${selectedVersion}`,
         year: event.year,
         event: event._id,

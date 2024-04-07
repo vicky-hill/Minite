@@ -1,12 +1,12 @@
 'use client'
 
 import { useContext } from 'react'
-import EventContext from '@/context/EventContext'
 import VersionButton from "../common/VersionButton"
+import ImageContext from '@/context/ImageContext'
 
 const VersionButtons = ({ }) => {
 
-    const { setSelectedVersion, selectedVersion } = useContext(EventContext);
+    const { setSelectedVersion, selectedVersion } = useContext(ImageContext);
 
     const onChange = (version) => {
         setSelectedVersion(version);

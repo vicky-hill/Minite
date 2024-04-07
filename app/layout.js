@@ -1,5 +1,6 @@
 import Protect from '@/components/layout/Protect';
 import { EventContextProvider } from '@/context/EventContext';
+import { ImageContextProvider } from '@/context/ImageContext';
 import { UserContextProvider } from '@/context/UserContext';
 import '@/sass/main.scss'
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
       <body>
         <UserContextProvider>
           <EventContextProvider>
-            <Protect>
-              {children}
-            </Protect>
+            <ImageContextProvider>
+              <Protect>
+                {children}
+              </Protect>
+            </ImageContextProvider>
           </EventContextProvider>
         </UserContextProvider>
       </body>
