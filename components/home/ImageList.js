@@ -1,15 +1,22 @@
-import React, { useContext } from 'react'
-import ImageListItem from './ImageListItem';
-import EventContext from '@/context/EventContext';
+'use client'
+
+import React, { useContext, useState, useEffect } from 'react'
+import ImageListItem from './ImageListItem'
+import EventContext from '@/context/EventContext'
 
 const ImageList = ({ }) => {
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+    
+    }, [])
 
     const { event } = useContext(EventContext);
 
     if (!event) return;
 
     return (
-        <div className='mt-20 h-[60vh] overflow-scroll'>
+        <div className='pb-56 flex flex-wrap justify-between mt-20 h-[60vh] overflow-scroll'>
             {
                 event.images.map(image => (
                     <ImageListItem key={image._id} image={image} />

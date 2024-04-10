@@ -18,7 +18,10 @@ const Upload = ({ imageID }) => {
 
   useEffect(() => {
     if (selectedVersion && event && userID) {
-      setFileName(`${event.year}_${event.name.toLowerCase()}_${selectedVersion}_${nextImageID}_${userID}_${uuid()}.jpg`);
+      const eventName = event.name.toLowerCase()
+        .split('&').join('and')
+        .split(' ').join('-')
+      setFileName(`${event.year}_${eventName}_${nextImageID}_${userID}_${uuid()}.jpg`);
       setFolder(`/Minite/${userID}/${event.year}`)
     }
   }, [selectedVersion, event, userID, nextImageID])
@@ -51,7 +54,7 @@ const Upload = ({ imageID }) => {
         version: selectedVersion
       }
 
-      await createImage(payload);
+      await createImage(payload, imageID);
       console.log('success')
     } catch (err) {
       console.log(err);

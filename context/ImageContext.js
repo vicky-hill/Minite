@@ -2,7 +2,6 @@
 
 import { createContext, useState, useEffect, useContext } from "react"
 import api from "@/utils/api"
-import UserContext from './UserContext'
 import EventContext from './EventContext'
 
 const ImageContext = createContext()
@@ -13,31 +12,37 @@ export const ImageContextProvider = ({ children }) => {
 
     const [images, setImages] = useState(null);
 
-    const [selectedVersion, setSelectedVersion] = useState('main');
+    const [selectedVersion, setSelectedVersion] = useState('original');
     const [nextImageID, setNextImageID] = useState(null);
 
-    const { currentUser } = useContext(UserContext);
-    const { event, setEvent, setEvents } = useContext(EventContext);
+    console.log('next image id', nextImageID)
+
+    const { event, events, setEvent, setEvents } = useContext(EventContext);
 
     useEffect(() => {
-        if (currentUser) {
-            setNextImageID(currentUser.nextImageID)
-        }
-    }, [currentUser])
-
-    useEffect(() => {
-        event && setImages(event.images);
+        event && getNextImageID(event)
     }, [event])
 
-    const getNextImageID = (imageID) => {
-        if (!imageID) return;
+    // useEffect(() => {
+    //     event && setImages(event.images);
+    // }, [event])
 
-        let imagePrefix = imageID.slice(0, 3);
-        let imageDigits = Number(imageID.slice(3)) + 1;
+    const getNextImageID = async (event) => {
+        try {
+            const nextImageID = await api.get(`/images/imageID/${event.year}`);
+            setNextImageID(nextImageID);
+        } catch (err) {
+          console.log(err);
+        }
+    }
 
-        const newImageID = imagePrefix + imageDigits.toString().padStart(4, 0);
-
-        return newImageID;
+    const getImagesWithVersions = async (imageID) => {
+        try {
+            const images = await api.get(`/images/${imageID}`);
+            setImages(images)
+        } catch (err) {
+          console.log(err);
+        }
     }
 
     /**
@@ -53,8 +58,9 @@ export const ImageContextProvider = ({ children }) => {
     * @property {string} payload.year
     * @property {number} payload.width
     * @property {number} payload.height
+    * @param {boolean} addVersion - true if the created image is a version of an exisiting image
     */
-    const createImage = async (payload) => {
+    const createImage = async (payload, addVersion) => {
         try {
             setLoading(true);
 
@@ -65,7 +71,7 @@ export const ImageContextProvider = ({ children }) => {
 
             setEvents(events => events.map(event => event._id === event ? updatedEvent : event));
             setEvent(event => event._id === event ? updatedEvent : event);
-            setNextImageID(imageID => getNextImageID(imageID))
+            !addVersion && await getNextImageID(event);
             setLoading(false);
         } catch (err) {
             setError('Failed to load features');
@@ -77,7 +83,8 @@ export const ImageContextProvider = ({ children }) => {
         selectedVersion,
         createImage,
         nextImageID,
-        setSelectedVersion
+        setSelectedVersion,
+        getImagesWithVersions
     }
 
     return (
